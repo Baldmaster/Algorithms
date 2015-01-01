@@ -1,4 +1,4 @@
-/* My emplementation of merge sort for INT      *
+/* C emplementation of merge sort for INT      *
  * using pointers and dynamic memory allocation *
  *                                              *
  * Skupoy Sergey. 2014                          */

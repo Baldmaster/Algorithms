@@ -3,7 +3,6 @@
  *                        *
  * Skupoy Sergey. 2014    */
 
-
 #ifndef STACK_H
 #define STACK_H
 

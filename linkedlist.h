@@ -1,9 +1,9 @@
-/* C doubly-linked list implementation *
+/* C linked list implementation *
  *                                     *
  * Skupoy Sergey. 2014                 */
 
-#ifndef DOUBLYLINKEDLIST_H
-#define DOUBLYLINKEDLIST_H
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 
 #include <stdio.h>
 #include <stdlib.h>

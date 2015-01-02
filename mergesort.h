@@ -10,11 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void merge_sort (int* array, int array_length);
-void merge (int* array, int* left_part, int* right_part,
-	    int right_length, int left_length);
-
-
 /*recursive mergesort function */
 void merge_sort (int *arr, int length)
 {
@@ -48,7 +43,7 @@ void merge_sort (int *arr, int length)
 	merge_sort (left_part, left_length);
         
         /* merging two arrays into one */
-        merge (arr, left_part, right_part, right_length, left_length);
+        merge (arr, left_part, right_part, left_length, right_length);
         
         /* freeing memory */
 	free (left_part);
@@ -59,7 +54,7 @@ void merge_sort (int *arr, int length)
 }
 
 
-void merge (int *arr, int *left_part, int *right_part, int right_length, int left_length)
+void merge (int *arr, int *left_part, int *right_part, int left_length, int right_length)
 {
     int len = right_length + left_length;
     

@@ -48,7 +48,7 @@ void merge_sort (int *arr, int length)
 	merge_sort (left_part, left_length);
         
         /* merging two arrays into one */
-        merge (arr, left_part, right_part, right_length - 1, left_length - 1);
+        merge (arr, left_part, right_part, right_length, left_length);
         
         /* freeing memory */
 	free (left_part);
@@ -61,23 +61,25 @@ void merge_sort (int *arr, int length)
 
 void merge (int *arr, int *left_part, int *right_part, int right_length, int left_length)
 {
-    int len = right_length + left_length + 1;
-    while (len >= 0) {
-        /* if one of arrays is out of bounds       *
-         * write the rest of another one to arr... */
-	if (right_length < 0 || left_length < 0 ) {
-	    if (right_length < 0)
-		while (left_length >= 0) 
-		    *(arr + len--) = *(left_part + left_length--);
+    int len = right_length + left_length;
+    
+    while (len) {
+        /* if one of two arrays reached the beginning *
+         * write the rest of another one to arr...    */
+	if (!right_length || !left_length) {
+	    if (!right_length)
+		while (left_length) 
+		    *(arr + --len) = *(left_part + --left_length);
 	    else 
-		while (right_length >= 0)
-		    *(arr + len--) = *(right_part + right_length--);
+		while (right_length)
+		    *(arr + --len) = *(right_part + --right_length);
       	}
+	
         /* otherwise compare elements and write to arr */
 	else {
-	    if (*(left_part + left_length) > *(right_part + right_length)) 
-		*(arr + len--) = *(left_part + left_length--);
-	    else *(arr + len--) = *(right_part + right_length--);
+	    if (*(left_part + (left_length - 1)) > *(right_part + (right_length - 1))) 
+		*(arr + --len) = *(left_part + --left_length);
+	    else *(arr + --len) = *(right_part + --right_length);
         }
     }
 }

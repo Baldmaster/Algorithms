@@ -11,7 +11,6 @@
 typedef struct node {
     int data;
     struct node *next_node;
-    struct node *prev_node;
 } list_node, *list_node_ptr;
 
 
@@ -25,7 +24,6 @@ void insert (list_node_ptr *list_head, int data)
     if (new_node != NULL) {
         new_node -> data = data;
         new_node -> next_node = *list_head;
-        new_node -> prev_node = NULL;
         *list_head = new_node;
     }
     else

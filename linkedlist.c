@@ -89,7 +89,7 @@ int compare_complex (complex* a, complex* b) {
 
 
 void display_integer (int* num) {
-    printf ("\n%d\n",  ++(*num));
+    printf ("\n%d\n",  *num);
 }
 
 int compare_integers (int* a, int* b) {

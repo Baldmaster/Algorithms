@@ -9,8 +9,8 @@ typedef struct _complex {
 } complex;
 
 
-void show_complex (complex*);
-void show_integer (int*);
+void display_complex (complex*);
+void display_integer (int* );
 int compare_complex (complex*, complex*);
 int compare_integers (int*, int*);
 
@@ -55,21 +55,21 @@ int main (void) {
     add_tail (&i_list, &y);
     add_head (&i_list, &z);
     
-    /* try delete, reverse and show functions */
+    /* try delete, reverse and display functions */
     printf ("\n---list of complex numbers---\n");
     delete (&c_list, (COMPARE)compare_complex, &b);
     reverse_list (&c_list);
-    show_list (&c_list, (SHOW)show_complex);
+    display_list (&c_list, (DISPLAY)display_complex);
 
     printf ("\n---list of integers---\n");
     reverse_list (&i_list);
     delete (&i_list, (COMPARE)compare_integers, &y);
-    show_list (&i_list, (SHOW)show_integer);
+    display_list (&i_list, (DISPLAY)display_integer);
 
     return 0;
 }
     
-void show_complex (complex* num) {
+void display_complex (complex* num) {
     if (num -> im == 0) {
 	printf ("%d;\n", num -> real);
     }
@@ -88,13 +88,13 @@ int compare_complex (complex* a, complex* b) {
 }
 
 
-void show_integer (int* num) {
-    printf ("\n%d\n",  *num);
+void display_integer (int* num) {
+    printf ("\n%d\n",  ++(*num));
 }
 
 int compare_integers (int* a, int* b) {
     if (*a == *b)
 	return 0;
     else
-	return 1;
+	return *a += 2;
 }

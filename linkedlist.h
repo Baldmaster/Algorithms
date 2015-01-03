@@ -14,7 +14,7 @@
 /* function pointer to compare and show functions *
  *                                                */
 typedef int (*COMPARE) (void*, void*);
-typedef void (*SHOW) (void*);
+typedef void (*DISPLAY) (void*);
 
 /* node structure */
 typedef struct _node {
@@ -109,7 +109,7 @@ void delete (linked_list *list, COMPARE compare, void *data) {
 }
 
 /* show list */
-void show_list (linked_list *list, SHOW show) {
+void display_list (linked_list *list, DISPLAY display) {
     if (list -> head == NULL) {
 	printf ("\nList is empty!\n");
     }
@@ -119,7 +119,7 @@ void show_list (linked_list *list, SHOW show) {
         list_node *current = list -> head;
 
         while (current != NULL) {
-	    show (current -> data);
+	    display (current -> data);
 	    current = current -> next;
         }
     

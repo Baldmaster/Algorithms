@@ -96,5 +96,5 @@ int compare_integers (int* a, int* b) {
     if (*a == *b)
 	return 0;
     else
-	return *a += 2;
+	return 1;
 }

@@ -117,7 +117,7 @@ void pbst_delete (pbst_node **root, COMPARE compare, void* data) {
 	        temp = temp -> right;
                 if (temp -> left == NULL) {		    
 		    /* set parent pointer to right subtree */
-		    temp -> parent -> right = temp -> right;
+		    temp -> parent -> left = temp -> right;
 		    
 		    /* swap data pointers */
 		    void* d = temp -> parent -> data;

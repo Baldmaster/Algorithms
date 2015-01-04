@@ -67,6 +67,7 @@ void bst_delete (tree_node **root, COMPARE compare, void* data) {
     tree_node* parent = NULL;
     int i;
 
+    /* Traverse tree until root pointer is not NULL */
     while (temp != NULL) {
 	/* comparing data with node data */
         i = compare (temp -> data, data);
@@ -150,6 +151,8 @@ void bst_delete (tree_node **root, COMPARE compare, void* data) {
     printf ("\nNode is not present in tree\n");
 }
 
+/* Tree traversal functions *
+ * in-, pre- and postorder. */
 void in_order_bst (tree_node *root, DISPLAY display) {
     if (root != NULL) {
 	in_order_bst (root -> left, display);
@@ -165,7 +168,6 @@ void pre_order_bst (tree_node *root, DISPLAY display) {
 	pre_order_bst (root -> right, display);
     }
 }
-
 
 void post_order_bst (tree_node *root, DISPLAY display) {
     if (root != NULL) {

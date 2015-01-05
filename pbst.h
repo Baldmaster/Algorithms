@@ -1,8 +1,10 @@
 /************************************************************ 
-   C binary search tree with parent pointers. 
+   C binary search tree with parent pointers (pbst). 
 Compare and display functions must be implemented separately 
-for every certain datatype. See pbst.c example file.
- 
+for every certain datatype.
+   This version presumes that you have to create your own 
+ functions for creation of tree nodes those can be used as 
+ separate root nodes. See "pbst.c".
 
 Skupoy Sergey. sergey.archlinux@gmail.com, 2015   
 ************************************************************/

@@ -3,7 +3,7 @@ Binary search tree.
 Example of using different data structures.
 ************************************************************/
 
-#include "pbst.h"
+#include "pbst2.h"
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,36 +15,36 @@ typedef struct _employee {
     unsigned char age;
 } employee;
 
-void display_integer (pbst_node*);
-void display_employee (pbst_node*);
-int compare_integers (pbst_node*, pbst_node*);
-int compare_employees (pbst_node*, pbst_node*);
+void display_integer (int*);
+void display_employee (employee*);
+int compare_integers (int*, int*);
+int compare_employees (employee*, employee*);
 
 int main (void) {
     srand (time (NULL));
     int j;
     /* sample array of names */
     char* names[32] = {
-	"Emma",
+	"Anna",
 	"Alex",
 	"Bob",
-	"Diana", 
+	"Bella", 
 	"Chuck", 
 	"Caroline", 
 	"Daniel", 
-	"Bella", 
+	"Diana", 
 	"Eve", 
-	"Jane",
+	"Fred",
 	"Gillian", 
 	"Ivor",
 	"Jane",
-	"Fred",
-	"Mike",
+	"Jane",
+	"Karl",
 	"Liza",
-	"Stan",
 	"Mike",
-	"Tom",
-	"Rita"
+	"Mike",
+	"Rita",
+	"Tom"
     };
 
     /* sample array of age values */
@@ -54,95 +54,82 @@ int main (void) {
     /* create employee tree root node */
     pbst_node* emp_tree = NULL;
 
-    pbst_node* employees[SIZE] = {NULL};
+    /* create array of emloyees */
+    employee* emps[SIZE] = {NULL};
+
     /* insert nodes in employee tree */ 
     for (j = 0; j < SIZE; j++) {
         /* create new employee and node*/
-	employee* emp = (employee*) malloc (sizeof (employee));
-	employees[j] = (pbst_node*) malloc (sizeof (pbst_node));
-
+	emps[j] = (employee*) malloc (sizeof (employee));
         /* return if no memory available */
-        if (employees[j] == NULL) {
+        if (emps[j] == NULL) {
              printf ("\nNo memory available!\n"); 
         return 1;
         }
         /* assign structure fields */
-	strcpy(emp -> name, names[j]);
-	emp -> age = ages[j];
-
-	employees[j] -> parent = NULL;
-	employees[j] -> left = NULL;
-	employees[j] -> right = NULL;
-	employees[j] -> data = emp;
+	strcpy(emps[j] -> name, names[j]);
+	emps[j] -> age = ages[j];
+       
         /* insert new node into tree */
-	pbst_insert (&emp_tree, (COMPARE)compare_employees, employees[j]);
+	pbst_insert (&emp_tree, (COMPARE)compare_employees, emps[j]);
     }
 
     printf ("\n------------------------------------------------------\n");
     printf ("\nEmployee tree inorder traversal:\n");
     in_order_pbst (emp_tree, (DISPLAY)display_employee);
-    printf ("\nEmployee tree minimum value\n");
+    printf ("\nEmployee");
     pbst_minimum (emp_tree, (DISPLAY)display_employee);
-    printf ("\n Subtree of \"Jane\" employee\n");
-    in_order_pbst (employees[9], (DISPLAY)display_employee);
+
     printf ("\n------------------------------------------------------\n");
 
     /* new tree root */
     pbst_node *tree = NULL;
     /* array of tree node pointers */
-    pbst_node* arr[SIZE];
+    int* arr[SIZE];
 
     for (j = 0; j < SIZE; j++) {
-	arr[j] = (pbst_node*) malloc (sizeof (pbst_node));
-	int* a = (int*) malloc (sizeof (int));
+	arr[j] = (int*) malloc (sizeof (int));
 
         /* return if no memory available */
-        if (arr[j] == NULL || a == NULL) {
+        if (arr[j] == NULL) {
              printf ("\nNo memory available!\n"); 
         return 1;
         }
-        /* assign structure fields */
-	*a = rand () % 100 + 3;
-	arr[j] -> data = a;
-	arr[j] -> parent = NULL;
-	arr[j] -> left = NULL;
-	arr[j] -> right = NULL;
+        *arr[j] = rand () % 100 + 3;
         /* insert new node in tree */
 	pbst_insert (&tree, (COMPARE)compare_integers, arr[j]);
     }
 
     /*show max number */
-    pbst_maximum (tree, (DISPLAY)display_integer);
-    printf ("\nTree inorder traversal: \n");
+    printf ("\nTree of integers inorder traversal: \n");
     in_order_pbst (tree, (DISPLAY)display_integer);
- 
+    pbst_maximum (tree, (DISPLAY)display_integer);
+
     return 0;
 }
 
 /************************************************************
  As data pointer in tree node structure is of void type,
- it has to be cast explicitely to needed type as shown in
- functions below.
+ it casts impicitely to any data type.
 ************************************************************/
 
-void display_integer (pbst_node* a) {
-    printf ("%d\n", *(int*)(a -> data));
+void display_integer (int* a) {
+    printf ("%d\n", *a);
 }
 
-int compare_integers (pbst_node* a, pbst_node* b) {
-    if (*(int*)(a -> data) == *(int*)(b -> data))
+int compare_integers (int* a, int* b) {
+    if (*a == *b)
 	return 0;
-    if (*(int*)(a -> data) < *(int*)(b -> data))
+    if (*a < *b)
 	return 2;
     else
 	return 1;
 }
 
-int compare_employees (pbst_node* a, pbst_node* b) {
-    int name =  strcmp (((employee*)(a -> data)) -> name,
-	                ((employee*)(b -> data)) -> name);
-    int age = ((employee*)(a -> data)) -> age -
-	      ((employee*)(b -> data)) -> age;
+int compare_employees (employee* a, employee* b) {
+    int name =  strcmp (a -> name,
+	                b -> name);
+    int age = a -> age - b -> age;
     
     if (name == 0) {
 	if (age == 0)
@@ -158,8 +145,19 @@ int compare_employees (pbst_node* a, pbst_node* b) {
 	return 2;
 }
 
-void display_employee (pbst_node* node) {
+int compare_emp_name (employee* a, char* n) {
+    int name =  strcmp (a -> name, n);    
+    if (name == 0) {
+         return 0;
+    }
+    else if (name > 0)
+	return 1;
+    else
+	return 2;
+}
+
+void display_employee (employee* node) {
     printf ("Name: %s, Age: %d\n",
-	    ((employee*)(node -> data)) -> name,
-	    ((employee*)(node -> data)) -> age);
+	    node -> name,
+	    node -> age);
 }

@@ -1,10 +1,8 @@
 /************************************************************ 
-   C binary search tree with parent pointers (pbst). 
+   C binary search tree with parent pointers. 
 Compare and display functions must be implemented separately 
 for every certain datatype.
-   This version presumes that you have to create your own 
- functions for creation of tree nodes those can be used as 
- separate root nodes. See "pbst.c".
+ 
 
 Skupoy Sergey. sergey.archlinux@gmail.com, 2015   
 ************************************************************/
@@ -41,27 +39,16 @@ typedef struct _pbst_node {
     struct _pbst_node* right;
 } pbst_node;
 
-/************************************************************
-  Setting node pointers to NULL, but !!!NOT DATA POINTER!!!
-Thus, node becomes a free root node and can be used again until 
-it is not destroyed by corresponding function if it is allocated
-dinamically.
- ************************************************************/
-void null_pointers (pbst_node *node) {
-    node -> parent = NULL;
-    node -> left = NULL;
-    node -> right = NULL;
-}
-
 /* node insert function */
-void pbst_insert (pbst_node **root, COMPARE compare, pbst_node* node) {
+void pbst_insert (pbst_node **root, COMPARE compare, void* data) {
     /* temporary node and variable */
     pbst_node* parent = NULL;
     int i;
-
+    pbst_node* node = (pbst_node*) malloc (sizeof (pbst_node));
+    
     /* while current node is not NULL */
     while ((*root) != NULL) {
-	i = compare ((*root), node);
+	i = compare ((*root) -> data, data);
 	parent = *root;
 	/* if data is larger then node data then traverse left subtree */
         if (i == 1)
@@ -73,15 +60,38 @@ void pbst_insert (pbst_node **root, COMPARE compare, pbst_node* node) {
 	else if (i == 0)
 	    return;
     }
-    /* set node parent */
+    /* set node pointers */
+    node -> data = data;
+    node -> left = NULL;
+    node -> right = NULL;
     node -> parent = parent;
 
     /* insert new node */
     *root = node;
 }
 
+/************************************************************
+   Find function can be implemented to find by any creteria.
+ ************************************************************/
+void pbst_find (pbst_node *root, COMPARE compare, void* data) {
+    while (root != NULL) {
+        int i = compare (root -> data, data);
+	if (i == 0) {
+	    printf ("\nNode found in tree\n");
+	    return;
+	}
+	else if (i == 1)
+	    root = root -> left;
+	else
+	    root = root -> right;
+    }
+    printf ("node not found\n");
+}
+
+
+    
 /* node delete function */
-void pbst_delete (pbst_node **root, COMPARE compare, pbst_node* node) {
+void pbst_delete (pbst_node **root, COMPARE compare, void* data) {
     /* return if tree is empty */
     if ((*root) == NULL) {
 	printf ("\nTree is empty. Nothing to delete!\n");
@@ -95,7 +105,7 @@ void pbst_delete (pbst_node **root, COMPARE compare, pbst_node* node) {
     /* Traverse tree until root pointer is not NULL */
     while (temp != NULL) {
 	/* comparing data with node data */
-        i = compare (temp, node);
+        i = compare (temp -> data, data);
 	/* if node is present in tree */
         if ( i == 0) {
 	    /* check child subtrees */
@@ -149,7 +159,7 @@ void pbst_delete (pbst_node **root, COMPARE compare, pbst_node* node) {
 		curr -> parent = parent;	    		
     	    }
 	    /* free node and return */
-	    null_pointers (temp);
+	    free (temp);
 	    return;
         }
 
@@ -176,8 +186,8 @@ frees nodes recursively.
 void _pbst_free (pbst_node **root) {       
     if ((*root) != NULL) {
 	_pbst_free (&((*root) -> left));
-	null_pointers (*root);
 	_pbst_free (&((*root) -> right));
+	free (*root);
     }
 }
 
@@ -188,7 +198,10 @@ void pbst_free (pbst_node **root) {
 	else
 	    (*root) -> parent -> right = NULL;
     }
+    printf ("%p\n", *root);
     _pbst_free (root);
+    printf ("%p\n", *root);
+    *root = NULL;
 }
 
 
@@ -199,15 +212,15 @@ void pbst_free (pbst_node **root) {
 void pbst_maximum (pbst_node* root, DISPLAY display) {
     while (root -> right != NULL)
 	root = root -> right;
-    printf ("\nTree maximum value is: ");
-    display (root);
+    printf (" Tree maximum value is: ");
+    display (root -> data);
 }
 
 void pbst_minimum (pbst_node* root, DISPLAY display) {
     while (root -> left != NULL)
 	root = root -> left;
-    printf ("\nTree minimum value is: ");
-    display (root);
+    printf (" Tree minimum value is: ");
+    display (root -> data);
 }    
 
 
@@ -217,14 +230,14 @@ void pbst_minimum (pbst_node* root, DISPLAY display) {
 void in_order_pbst (pbst_node *root, DISPLAY display) {
     if (root != NULL) {
 	in_order_pbst (root -> left, display);
-	display (root);
+	display (root -> data);
 	in_order_pbst (root -> right, display);
     }
 }
 
 void pre_order_pbst (pbst_node *root, DISPLAY display) {
     if (root != NULL) {
-	display (root);
+	display (root -> data);
 	pre_order_pbst (root -> left, display);
 	pre_order_pbst (root -> right, display);
     }
@@ -234,7 +247,7 @@ void post_order_pbst (pbst_node *root, DISPLAY display) {
     if (root != NULL) {
 	post_order_pbst (root -> left, display);
 	post_order_pbst (root -> right, display);
-	display (root);
+	display (root -> data);
     }
 }    
 

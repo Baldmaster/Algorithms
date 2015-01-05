@@ -25,26 +25,26 @@ int main (void) {
     int j;
     /* sample array of names */
     char* names[32] = {
-	"Anna",
+	"Emma",
 	"Alex",
 	"Bob",
-	"Bella", 
+	"Diana", 
 	"Chuck", 
 	"Caroline", 
 	"Daniel", 
-	"Diana", 
+	"Bella", 
 	"Eve", 
-	"Fred",
+	"Jane",
 	"Gillian", 
 	"Ivor",
 	"Jane",
-	"Jane",
-	"Karl",
+	"Fred",
+	"Mike",
 	"Liza",
+	"Stan",
 	"Mike",
-	"Mike",
-	"Rita",
-	"Tom"
+	"Tom",
+	"Rita"
     };
 
     /* sample array of age values */
@@ -54,14 +54,15 @@ int main (void) {
     /* create employee tree root node */
     pbst_node* emp_tree = NULL;
 
+    pbst_node* employees[SIZE] = {NULL};
     /* insert nodes in employee tree */ 
     for (j = 0; j < SIZE; j++) {
         /* create new employee and node*/
 	employee* emp = (employee*) malloc (sizeof (employee));
-	pbst_node* node = (pbst_node*) malloc (sizeof (pbst_node));
+	employees[j] = (pbst_node*) malloc (sizeof (pbst_node));
 
         /* return if no memory available */
-        if (emp == NULL || node == NULL) {
+        if (employees[j] == NULL) {
              printf ("\nNo memory available!\n"); 
         return 1;
         }
@@ -69,12 +70,12 @@ int main (void) {
 	strcpy(emp -> name, names[j]);
 	emp -> age = ages[j];
 
-	node -> parent = NULL;
-	node -> left = NULL;
-	node -> right = NULL;
-	node -> data = emp;
+	employees[j] -> parent = NULL;
+	employees[j] -> left = NULL;
+	employees[j] -> right = NULL;
+	employees[j] -> data = emp;
         /* insert new node into tree */
-	pbst_insert (&emp_tree, (COMPARE)compare_employees, node);
+	pbst_insert (&emp_tree, (COMPARE)compare_employees, employees[j]);
     }
 
     printf ("\n------------------------------------------------------\n");
@@ -82,7 +83,8 @@ int main (void) {
     in_order_pbst (emp_tree, (DISPLAY)display_employee);
     printf ("\nEmployee tree minimum value\n");
     pbst_minimum (emp_tree, (DISPLAY)display_employee);
-
+    printf ("\n Subtree of \"Jane\" employee\n");
+    in_order_pbst (employees[9], (DISPLAY)display_employee);
     printf ("\n------------------------------------------------------\n");
 
     /* new tree root */

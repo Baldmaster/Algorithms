@@ -39,13 +39,18 @@ typedef struct _pbst_node {
     struct _pbst_node* right;
 } pbst_node;
 
-/* node insert function */
+/************************************************************
+   Node insert function
+************************************************************/
 void pbst_insert (pbst_node **root, COMPARE compare, void* data) {
     /* temporary node and variable */
     pbst_node* parent = NULL;
     int i;
     pbst_node* node = (pbst_node*) malloc (sizeof (pbst_node));
-    
+    if (node == NULL) {
+	printf ("\nWARNING!!! NO MEMORY AVAILABLE!\n");
+	return;
+    }
     /* while current node is not NULL */
     while ((*root) != NULL) {
 	i = compare ((*root) -> data, data);
@@ -90,7 +95,9 @@ void pbst_find (pbst_node *root, COMPARE compare, void* data) {
 
 
     
-/* node delete function */
+/************************************************************
+   Delete node function
+************************************************************/
 void pbst_delete (pbst_node **root, COMPARE compare, void* data) {
     /* return if tree is empty */
     if ((*root) == NULL) {

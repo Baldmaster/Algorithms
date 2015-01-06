@@ -3,7 +3,7 @@ Binary search tree.
 Example of using different data structures.
 ************************************************************/
 
-#include "pbst2.h"
+#include "pbst.h"
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>

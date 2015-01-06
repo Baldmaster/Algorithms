@@ -23,7 +23,7 @@ int compare_employees (employee*, employee*);
 int main (void) {
     srand (time (NULL));
     int j;
-    /* sample array of names */
+    /* Array of names */
     char* names[32] = {
 	"Anna",
 	"Alex",
@@ -47,7 +47,7 @@ int main (void) {
 	"Tom"
     };
 
-    /* sample array of age values */
+    /* Array of age values */
     unsigned char ages[SIZE] = { 22, 31, 34, 25, 28, 34, 31, 40, 20, 27,
 				 32, 25, 27, 37, 29, 34, 24, 38, 33, 26};
 	
@@ -60,15 +60,15 @@ int main (void) {
     /* insert nodes in employee tree */ 
     for (j = 0; j < SIZE; j++) {
         /* create new employee and node*/
-	emps[j] = (employee*) malloc (sizeof (employee));
+    	emps[j] = (employee*) malloc (sizeof (employee));
         /* return if no memory available */
         if (emps[j] == NULL) {
              printf ("\nNo memory available!\n"); 
         return 1;
         }
         /* assign structure fields */
-	strcpy(emps[j] -> name, names[j]);
-	emps[j] -> age = ages[j];
+	    strcpy(emps[j] -> name, names[j]);
+	    emps[j] -> age = ages[j];
        
         /* insert new node into tree */
         bst_insert (&emp_tree, (COMPARE)compare_employees, emps[j]);
@@ -84,7 +84,7 @@ int main (void) {
 
     /* new tree root */
     bst_node *tree = NULL;
-    /* array of tree node pointers */
+    /* Array of int pointers */
     int* arr[SIZE];
 
     for (j = 0; j < SIZE; j++) {
@@ -100,9 +100,10 @@ int main (void) {
         bst_insert (&tree, (COMPARE)compare_integers, arr[j]);
     }
 
-    /*show max number */
+
     printf ("\nTree of integers inorder traversal: \n");
     in_order_bst (tree, (DISPLAY)display_integer);
+    /* Maximum integer in tree*/
     bst_maximum (tree, (DISPLAY)display_integer);
 
     return 0;

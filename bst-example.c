@@ -128,8 +128,7 @@ int compare_integers (int* a, int* b) {
 }
 
 int compare_employees (employee* a, employee* b) {
-    int name =  strcmp (a -> name,
-	                b -> name);
+    int name =  strcmp (a -> name, b -> name);
     int age = a -> age - b -> age;
     
     if (name == 0) {

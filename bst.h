@@ -7,8 +7,8 @@ for every certain datatype.
 Skupoy Sergey. sergey.archlinux@gmail.com, 2015   
 ************************************************************/
 
-#ifndef BST2_H
-#define BST2_H
+#ifndef BST_H
+#define BST_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +29,7 @@ Point that data pointer is "void", that allows you to use
 data of any type. 
                   !!!WARNING!!!
 You must take care of correct memory deallocation functions
-if you allocate "pbst_node" or "data" pointer dinamically! 
+if you allocate "data" pointer dinamically! 
 Be carefull! 
 ************************************************************/
 typedef struct _bst_node {

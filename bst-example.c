@@ -3,7 +3,7 @@ Binary search tree.
 Example of using different data structures.
 ************************************************************/
 
-#include "pbst.h"
+#include "bst.h"
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
@@ -52,7 +52,7 @@ int main (void) {
 				 32, 25, 27, 37, 29, 34, 24, 38, 33, 26};
 	
     /* create employee tree root node */
-    pbst_node* emp_tree = NULL;
+    bst_node* emp_tree = NULL;
 
     /* create array of emloyees */
     employee* emps[SIZE] = {NULL};
@@ -71,19 +71,19 @@ int main (void) {
 	emps[j] -> age = ages[j];
        
         /* insert new node into tree */
-	pbst_insert (&emp_tree, (COMPARE)compare_employees, emps[j]);
+        bst_insert (&emp_tree, (COMPARE)compare_employees, emps[j]);
     }
 
     printf ("\n------------------------------------------------------\n");
     printf ("\nEmployee tree inorder traversal:\n");
-    in_order_pbst (emp_tree, (DISPLAY)display_employee);
+    in_order_bst (emp_tree, (DISPLAY)display_employee);
     printf ("\nEmployee");
-    pbst_minimum (emp_tree, (DISPLAY)display_employee);
+    bst_minimum (emp_tree, (DISPLAY)display_employee);
 
     printf ("\n------------------------------------------------------\n");
 
     /* new tree root */
-    pbst_node *tree = NULL;
+    bst_node *tree = NULL;
     /* array of tree node pointers */
     int* arr[SIZE];
 
@@ -97,13 +97,13 @@ int main (void) {
         }
         *arr[j] = rand () % 100 + 3;
         /* insert new node in tree */
-	pbst_insert (&tree, (COMPARE)compare_integers, arr[j]);
+        bst_insert (&tree, (COMPARE)compare_integers, arr[j]);
     }
 
     /*show max number */
     printf ("\nTree of integers inorder traversal: \n");
-    in_order_pbst (tree, (DISPLAY)display_integer);
-    pbst_maximum (tree, (DISPLAY)display_integer);
+    in_order_bst (tree, (DISPLAY)display_integer);
+    bst_maximum (tree, (DISPLAY)display_integer);
 
     return 0;
 }

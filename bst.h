@@ -205,9 +205,7 @@ void bst_free (bst_node **root) {
 	else
 	    (*root) -> parent -> right = NULL;
     }
-    printf ("%p\n", *root);
     _bst_free (root);
-    printf ("%p\n", *root);
     *root = NULL;
 }
 

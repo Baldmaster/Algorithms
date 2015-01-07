@@ -91,9 +91,6 @@ void delete (linked_list *list, COMPARE compare, void *data) {
     if (compare (node -> data, data) == 0) {
 	list -> head = node -> next;
 	list -> head -> prev = NULL;
-	free (node);
-	printf ("\nNode deleted successfully\n");
-	return;
     }
     else {
 	list_node* prev = node;
@@ -105,15 +102,18 @@ void delete (linked_list *list, COMPARE compare, void *data) {
 	    if (compare (node -> data, data) == 0) {
 		prev -> next = node -> next;
 		next -> prev = node -> prev;
-		free (node);
-		printf ("\nNode deleted successfully\n");
-		return;
+                break;
 	    }
 	    prev = node;
 	    node = next;
 	}
-	printf ("\nNode not found\n");
     }
+    if (node) {
+        free (node);
+        printf ("\nNode deleted successfully\n");
+    }
+    else
+	printf ("\nNode is not found\n");
 }
 
 /* show list */

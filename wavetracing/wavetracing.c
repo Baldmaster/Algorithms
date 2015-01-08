@@ -8,7 +8,7 @@ const int dy[4] = {0, 1, 0, -1};
 int find_path (unsigned char* maze, int width, int height, wave_node *start, wave_node *target) {
     /* initializing a list of utmost points in wavefront list*/
     wave_node* wavefront = (wave_node*) malloc (sizeof (wave_node));
-    /* temp pointer*/
+    /* temp pointer points to current node of wavefront */
     wave_node* wave;
     /* insert starting point to wavefront */
     insert (&wavefront, start -> x, start -> y);
@@ -21,6 +21,7 @@ int find_path (unsigned char* maze, int width, int height, wave_node *start, wav
 
     /* while there are points in wavefront */
     while (wavefront) {
+    /* assing head of wavefront list */
 	wave = wavefront;
 	/* traversing all points in list */
 	while (wave) {
@@ -44,7 +45,7 @@ int find_path (unsigned char* maze, int width, int height, wave_node *start, wav
 		if (temp_x < 0 || temp_x > width || temp_y < 0 || temp_y > height)
 		    continue;
 		
-	        /* if nearby point is free, mark it and insert new point to wavefront */
+	        /* if nearby point is free, mark it and insert new point to head of wavefront */
 		if (*(maze + (temp_y * height) + temp_x) == '-') {
 		    *(maze + (temp_y * height) + temp_x) = mark;
 		    /* if insertion failed return failure value */

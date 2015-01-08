@@ -53,7 +53,7 @@ int find_path (int* maze, int width, int height, wave_node *start, wave_node *ta
 		    *(maze + (temp_y * height) + temp_x) = n;
 		    /* if insertion failed return failure value */
 		    if (insert (&wavefront, temp_x, temp_y))
-			return 1;
+			return 2;
 		}
 	    }
 	    /* delete current point from list and goto next point*/
@@ -70,7 +70,7 @@ int find_path (int* maze, int width, int height, wave_node *start, wave_node *ta
     empty_wavefront (&wavefront);
     free (wavefront);
     /* return fail value */
-    return 0;
+    return 1;
 }
 
 

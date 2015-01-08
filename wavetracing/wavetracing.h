@@ -35,7 +35,9 @@ void empty_wavefront (wave_node**);
  height values. Two last are start and target node (point), 
  check their values!
    Return values:
-   0 - success, 1 - failure
+   0 - success, 
+   1 - path not found, 
+   2 - adding node failure (no memory available).
  ************************************************************/
 int find_path (int*, int, int, wave_node*, wave_node*);
 

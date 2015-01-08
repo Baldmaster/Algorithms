@@ -48,7 +48,7 @@ int find_path (int* maze, int width, int height, wave_node *start, wave_node *ta
 		if (temp_x < 0 || temp_x > width || temp_y < 0 || temp_y > height)
 		    continue;
 		
-	        /* if point is free, mark it and insert new point to wavefront */
+	        /* if nearby point is free, mark it and insert new point to wavefront */
 		if (*(maze + (temp_y * height) + temp_x) == 0) {
 		    *(maze + (temp_y * height) + temp_x) = n;
 		    /* if insertion failed return failure value */

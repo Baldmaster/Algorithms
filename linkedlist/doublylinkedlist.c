@@ -1,32 +1,4 @@
-/* C linked list implementation.              *
- * any data type acceptable.                  *
- * Functions for comparing and showing        *
- * type variables must be defined separately. *
- *                                            *
- * Skupoy Sergey. 2014                        */
-
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
-
-#include <stdio.h>
-#include <stdlib.h>
-
-/* function pointer to compare and show functions *
- *                                                */
-typedef int (*COMPARE) (void*, void*);
-typedef void (*DISPLAY) (void*);
-
-/* node structure */
-typedef struct _node {
-    void *data;
-    struct _node *next;
-} list_node;
-
-/* list structure */
-typedef struct _linked_list {
-    list_node *head;
-    list_node *tail;
-} linked_list;
+#include "doublylinkedlist.h"
 
 /* list initialization */
 void initialize_list (linked_list *list) {
@@ -50,9 +22,11 @@ void add_head (linked_list *list, void *data) {
     if (list -> head == NULL) {
 	list -> tail = node;
 	node -> next = NULL;
+	node -> prev = NULL;
     }
     else {
 	node -> next = list -> head;
+	node -> prev = NULL;
     }
     
     list -> head = node;
@@ -73,9 +47,11 @@ void add_tail (linked_list *list, void *data) {
     node -> next = NULL;
     if (list -> head == NULL) {
 	list -> head = node;
+	node -> prev = NULL;
     }
     else {
 	list -> tail -> next = node;
+	node -> prev = list -> tail;
     }    
     list -> tail = node;
 }
@@ -85,27 +61,30 @@ void delete (linked_list *list, COMPARE compare, void *data) {
     list_node *node = list -> head;
     if (compare (node -> data, data) == 0) {
 	list -> head = node -> next;
-	free (node);
-	printf ("\nNode deleted successfully\n");
-	return;
+	list -> head -> prev = NULL;
     }
     else {
-        list_node *prev = node;
-        node = node -> next;
-       
+	list_node* prev = node;
+	node = node -> next;
+	list_node* next = NULL;
         while (node != NULL) {
+	    next = node -> next;
 	    /* if node is found delete it */
 	    if (compare (node -> data, data) == 0) {
 		prev -> next = node -> next;
-		free (node);
-		printf ("\nNode deleted successfully\n");
-		return;
+		next -> prev = node -> prev;
+                break;
 	    }
 	    prev = node;
-	    node = node -> next;
+	    node = next;
 	}
-	printf ("\nNode not found\n");
     }
+    if (node) {
+        free (node);
+        printf ("\nNode deleted successfully\n");
+    }
+    else
+	printf ("\nNode is not found\n");
 }
 
 /* show list */
@@ -137,14 +116,13 @@ void reverse_list (linked_list *list) {
     while (current != NULL) {
 	next = current -> next;
 	current -> next = prev;
+	current -> prev = next;
 	prev = current;
 	current = next;
     }
 
     /* swap head and tail pointers */
-    list_node *tmp = list -> head;
+    current = list -> head;
     list -> head = list -> tail;
-    list -> tail = tmp;
+    list -> tail = current;
 }
-
-#endif

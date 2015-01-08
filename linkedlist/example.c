@@ -1,7 +1,7 @@
 /* Example of using linked list *
  * for any data structure       */
 
-#include "linkedlist.h"
+#include "doublylinkedlist.h"
 
 typedef struct _complex {
     int real;

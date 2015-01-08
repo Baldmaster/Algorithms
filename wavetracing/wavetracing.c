@@ -41,7 +41,7 @@ int find_path (int* maze, int width, int height, wave_node *start, wave_node *ta
 		    free (wavefront);
 		    /* return success value */
 		    printf ("\n----- Path found! Length: %d -----\n", n);
-		    return 1;
+		    return 0;
 		}
 		
 		/* if out of bounds goto next side checking */
@@ -52,15 +52,14 @@ int find_path (int* maze, int width, int height, wave_node *start, wave_node *ta
 		if (*(maze + (temp_y * height) + temp_x) == 0) {
 		    *(maze + (temp_y * height) + temp_x) = n;
 		    /* if insertion failed return failure value */
-		    if (!(insert (&wavefront, temp_x, temp_y)))
-			return -1;
+		    if (insert (&wavefront, temp_x, temp_y))
+			return 1;
 		}
 	    }
-	    /* delete current point from list */
+	    /* delete current point from list and goto next point*/
 	    wave_node* temp = wave;
-	    delete (&wavefront, &temp);
-	    /* go to next point */
 	    wave = wave -> next;
+	    delete (&wavefront, &temp);
 	}
 	/* incrementing mark number */
 	n++;
@@ -78,7 +77,7 @@ int find_path (int* maze, int width, int height, wave_node *start, wave_node *ta
 int insert (wave_node** start, int x, int y) {
     wave_node* node = (wave_node*) malloc (sizeof (wave_node));
     if (node == NULL)
-	return 0;
+	return 1;
     else {
 	node -> x = x;
 	node -> y = y;
@@ -91,7 +90,7 @@ int insert (wave_node** start, int x, int y) {
 	}
 	node -> prev = NULL;
 	*start = node;
-	return 1;
+	return 0;
     }
 }
     		

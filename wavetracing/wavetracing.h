@@ -34,11 +34,15 @@ void empty_wavefront (wave_node**);
  BE CAREFULL WITH POINTERS. Check correctness of width and 
  height values. Two last are start and target node (point), 
  check their values!
+   Return values:
+   0 - success, 1 - failure
  ************************************************************/
 int find_path (int*, int, int, wave_node*, wave_node*);
 
 /************************************************************
    Insert new node into wavefront points list.
+   Return values:
+   0 - success, 1 - failure
  ************************************************************/
 int insert (wave_node**, int, int);
 

@@ -16,7 +16,7 @@ int find_path (unsigned char* maze, int width, int height, wave_node *start, wav
     int mark = 1;
     /* temp variables */
     int j, temp_x, temp_y;
-    /* setting starting point to 1 */
+    /* mark starting point as 'S' */
     *(maze + ((start -> y) * height) + (start -> x)) = 'S';
 
     /* while there are points in wavefront */

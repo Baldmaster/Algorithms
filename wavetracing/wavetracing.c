@@ -81,7 +81,8 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
 		/* if out of bounds goto next side checking */
 	    if (temp_x < 0 || temp_x > width || temp_y < 0 || temp_y > height)
 		    continue;	    
-	    /* return success if reached target point */
+	    /* mark path point with letter showing next step direction
+         * u - up, d - down, l - left, r - right                  */
 	    if (*(maze + (temp_y * height) + temp_x) == count) {
 	        switch (j) {
 	    	    case 0:
@@ -103,7 +104,7 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
 	}
         count--;
     }
-  
+    /* display maze with path */
     for (i = 0; i < height; i++) {
 	for (j = 0; j < width; j++)
 	    printf ("%2c", *(maze + (i* height) + j) < 33 ?

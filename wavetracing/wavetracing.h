@@ -22,7 +22,6 @@ typedef struct _wave_node {
     struct _wave_node *prev;
 } wave_node;
 
-
 /************************************************************
   Delete all list nodes. Gets first node of list as argument.
 ************************************************************/
@@ -39,7 +38,15 @@ void empty_wavefront (wave_node**);
    1 - path not found, 
    2 - adding node failure (no memory available).
  ************************************************************/
-int find_path (int*, int, int, wave_node*, wave_node*);
+int find_path (unsigned char*, int, int, wave_node*, wave_node*);
+
+/************************************************************
+   Show path function. First argument is a pointer to 
+  two-dimensional array. Two next are array dimensions.
+  Two last are coordinates of final point. The function is called
+  if find_path is succeded.
+************************************************************/
+void show_path (unsigned char* maze, int width, int height, int x, int y);
 
 /************************************************************
    Insert new node into wavefront points list.

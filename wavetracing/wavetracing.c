@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "wavetracing.h"
 
 /* Coordinates increment */
@@ -79,11 +82,11 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
 	    /* adding increment values to coordinates */
 	    temp_x = x + dx[j];
 	    temp_y = y + dy[j];
-		/* if out of bounds goto next side checking */
+	    /* if out of bounds goto next side checking */
 	    if (temp_x < 0 || temp_x > width || temp_y < 0 || temp_y > height)
 		    continue;	    
 	    /* mark path point with letter showing next step direction
-         * u - up, d - down, l - left, r - right                  */
+             * u - up, d - down, l - left, r - right                  */
 	    if (*(maze + (temp_y * height) + temp_x) == count) {
 	        switch (j) {
 	    	    case 0:

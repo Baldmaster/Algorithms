@@ -7,9 +7,6 @@
 #ifndef WAVETRACING_H
 #define WAVETRACING_H
 
-#include <stdio.h>
-#include <stdlib.h>
-
 /************************************************************
  List node structure.
  x, y coordinate.

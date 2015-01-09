@@ -1,7 +1,9 @@
 /************************************************************
-   Lee algorithm.
+   Lee algorithm usage example.
  ************************************************************/
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "wavetracing.h"
 
 #define LIMIT 32
@@ -24,7 +26,7 @@ int main (int argc, char* argv[]) {
     int start_x, start_y, target_x, target_y;
 
     if (init (in, &width, &height, &start_x, &start_y, &target_x, &target_y)) {
-	printf ("FAil!!!\n");
+	printf ("Check your input file!\n");
 	exit (EXIT_FAILURE);
     }
 

@@ -2,7 +2,7 @@ Lee algorithm
 ----
  ["Lee algorithm"](https://en.wikipedia.org/wiki/Lee_algorithm)
 
-  Some description to code:
+  Some description to the code:
 
 Wavefront is a list of utmost points, after first iteration wavefront nodes are free starting
 point neighbors, after second iteration wavefront nodes are free neighbors of those points and so on.

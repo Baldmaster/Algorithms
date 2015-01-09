@@ -8,11 +8,11 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 /* looking for path in maze */
-int find_path (unsigned char* maze, int width, int height, wave_node *start, wave_node *target) {
-    /* initializing a list of utmost points in wavefront list*/
-    wave_node* wavefront = (wave_node*) malloc (sizeof (wave_node));
+int find_path (unsigned char* maze, int width, int height, list_node* start, list_node* target) {
+    /* initializing a list of utmost points */
+    list_node* wavefront = (list_node*) malloc (sizeof (list_node));
     /* temp pointer points to current node of wavefront */
-    wave_node* wave;
+    list_node* current_node = NULL;
     /* insert starting point to wavefront */
     insert (&wavefront, start -> x, start -> y);
     /* mark value */
@@ -22,17 +22,17 @@ int find_path (unsigned char* maze, int width, int height, wave_node *start, wav
     /* mark starting point as 'S' */
     *(maze + ((start -> y) * height) + (start -> x)) = 'S';
 
-    /* while there are points in wavefront */
+    /* while wavefront is not empty */
     while (wavefront) {
-    /* assing head of wavefront list */
-	wave = wavefront;
+        /* assing head of wavefront list to current_node pointer */
+	current_node = wavefront;
 	/* traversing all points in list */
-	while (wave) {
+	while (current_node) {
 	    /* check all four sides */
 	    for (j = 0; j < 4; j++) {
 		/* adding increment values to coordinates */
-		temp_x = (wave -> x) + dx[j];
-		temp_y = (wave -> y) + dy[j];
+		temp_x = (current_node -> x) + dx[j];
+		temp_y = (current_node -> y) + dy[j];
 		
 		/* return success if reached target point */
 		if (temp_x == target -> x && temp_y == target -> y) {
@@ -57,8 +57,8 @@ int find_path (unsigned char* maze, int width, int height, wave_node *start, wav
 		}
 	    }
 	    /* delete current point from list and goto next point*/
-	    wave_node* temp = wave;
-	    wave = wave -> next;
+	    list_node* temp = current_node;
+	    current_node = current_node -> next;
 	    delete (&wavefront, &temp);
 	}
 	/* incrementing mark value */
@@ -121,8 +121,8 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
 
 
 /* insert new node into wavefront points list */
-int insert (wave_node** start, int x, int y) {
-    wave_node* node = (wave_node*) malloc (sizeof (wave_node));
+int insert (list_node** start, int x, int y) {
+    list_node* node = (list_node*) malloc (sizeof (list_node));
     if (node == NULL)
 	return 1;
     else {
@@ -142,26 +142,26 @@ int insert (wave_node** start, int x, int y) {
 }
 
 /* delete node from wavefront points list */
-void delete (wave_node** start, wave_node** wave) {
-    if (*start == *wave) {
-	free (*wave);
+void delete (list_node** start, list_node** current) {
+    if (*start == *current) {
+	free (*current);
 	*start = NULL;
     }
     else {
-	wave_node* prev = (*wave) -> prev;
-	wave_node* next = (*wave) -> next;
+        list_node* prev = (*current) -> prev;
+        list_node* next = (*current) -> next;
 	prev -> next = next;
 	if (next)
 	    next -> prev = prev;
-	free (*wave);
+	free (*current);
     }
 
 }
 
 /* delete all nodes from list and free memory */
-void empty_wavefront (wave_node** start) {
-    wave_node* temp = (*start);
-    wave_node* next = (*start);
+void empty_wavefront (list_node** start) {
+    list_node* temp = (*start);
+    list_node* next = (*start);
     while (temp != NULL) {
 	next = next -> next;
 	free (temp);

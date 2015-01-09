@@ -41,7 +41,7 @@ int main (int argc, char* argv[]) {
 	i++;
     }
 
-    wave_node start, target;
+    list_node start, target;
     start.x = start_x;
     start.y = start_y;
     start.next = NULL;

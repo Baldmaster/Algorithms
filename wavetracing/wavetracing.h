@@ -12,17 +12,17 @@
  x, y coordinate.
  next, prev - next and previous nodes.
 ************************************************************/
-typedef struct _wave_node {
+typedef struct _node {
     int x;
     int y;
-    struct _wave_node *next;
-    struct _wave_node *prev;
-} wave_node;
+    struct _node *next;
+    struct _node *prev;
+} list_node;
 
 /************************************************************
   Delete all list nodes. Gets first node of list as argument.
 ************************************************************/
-void empty_wavefront (wave_node**);
+void empty_wavefront (list_node**);
 
 /************************************************************
    Find path function. First argument is a pointer to
@@ -35,7 +35,7 @@ void empty_wavefront (wave_node**);
    1 - path not found, 
    2 - adding node failure (no memory available).
  ************************************************************/
-int find_path (unsigned char*, int, int, wave_node*, wave_node*);
+int find_path (unsigned char*, int, int, list_node*, list_node*);
 
 /************************************************************
    Show path function. First argument is a pointer to 
@@ -50,11 +50,11 @@ void show_path (unsigned char* maze, int width, int height, int x, int y);
    Return values:
    0 - success, 1 - failure
  ************************************************************/
-int insert (wave_node**, int, int);
+int insert (list_node**, int, int);
 
 /************************************************************
    Delete node from wavefront points list.
  ************************************************************/
-void delete (wave_node**, wave_node**);
+void delete (list_node**, list_node**);
 
 #endif

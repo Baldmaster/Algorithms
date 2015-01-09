@@ -9,6 +9,6 @@ Lee algorithm
     new node added to the head of wavefront list. After all sides of current point are checked,
     current node is deleted from wavefront list, obviously because it does not have any free
     neighbors already. After end of list is reached, new iteration starts from head of list, and so
-    on until final point is reached. If final point is not reached and there are no free points,
-    it means that there is no path to final point.
+    on until final point is reached. If final point is not reached and there are no free points
+    (wavefront list is empty), it means that there is no path to final point.
   

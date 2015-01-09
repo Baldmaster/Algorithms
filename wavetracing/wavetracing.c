@@ -7,6 +7,8 @@
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
+/*------------------------------------------------------------*/
+
 /* looking for path in maze */
 int find_path (unsigned char* maze, int width, int height, list_node* start, list_node* target) {
     /* initializing a list of utmost points */
@@ -26,10 +28,13 @@ int find_path (unsigned char* maze, int width, int height, list_node* start, lis
     while (wavefront) {
         /* assing head of wavefront list to current_node pointer */
 	current_node = wavefront;
+	
 	/* traversing all points in list */
 	while (current_node) {
+	    
 	    /* check all four sides */
 	    for (j = 0; j < 4; j++) {
+		
 		/* adding increment values to coordinates */
 		temp_x = (current_node -> x) + dx[j];
 		temp_y = (current_node -> y) + dy[j];
@@ -37,13 +42,14 @@ int find_path (unsigned char* maze, int width, int height, list_node* start, lis
 		/* return success if reached target point */
 		if (temp_x == target -> x && temp_y == target -> y) {
 		    *(maze + (temp_y * height) + temp_x) = mark;
+		    
 		    /* free wavefront list */
 		    empty_wavefront (&wavefront);
+		    
 		    /* return success value */
 		    printf ("\n----- Path found! Length: %d -----\n", mark);
 		    return 0;
 		}
-		
 		/* if out of bounds goto next side checking */
 		if (temp_x < 0 || temp_x > width || temp_y < 0 || temp_y > height)
 		    continue;
@@ -51,9 +57,12 @@ int find_path (unsigned char* maze, int width, int height, list_node* start, lis
 	        /* if nearby point is free, mark it and insert new point to head of wavefront */
 		if (*(maze + (temp_y * height) + temp_x) == '-') {
 		    *(maze + (temp_y * height) + temp_x) = mark;
-		    /* if insertion failed return failure value */
-		    if (insert (&wavefront, temp_x, temp_y))
+		    
+		    /* if insertion failed, free wavefront list and return failure value */
+		    if (insert (&wavefront, temp_x, temp_y)) {
+			empty_wavefront (&wavefront);
 			return 2;
+		    }
 		}
 	    }
 	    /* delete current point from list and goto next point*/
@@ -66,11 +75,15 @@ int find_path (unsigned char* maze, int width, int height, list_node* start, lis
     }
     /* if there are no more free points and target point not reached, return failure */
     printf ("\n----- PATH NOT FOUND -----\n");
-    /* free wavefront list */
+    
+    /* free wavefront pointer */
     free (wavefront);
+    
     /* return fail value */
     return 1;
 }
+
+/*------------------------------------------------------------*/
 
 /* show path from starting point to final */
 void show_path (unsigned char* maze, int width, int height, int x, int y) {
@@ -82,9 +95,11 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
 	    /* adding increment values to coordinates */
 	    temp_x = x + dx[j];
 	    temp_y = y + dy[j];
+	    
 	    /* if out of bounds goto next side checking */
 	    if (temp_x < 0 || temp_x > width || temp_y < 0 || temp_y > height)
-		    continue;	    
+		    continue;
+	    
 	    /* mark path point with letter showing next step direction
              * u - up, d - down, l - left, r - right                  */
 	    if (*(maze + (temp_y * height) + temp_x) == count) {
@@ -108,6 +123,7 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
 	}
         count--;
     }
+    
     /* display maze with path */
     for (i = 0; i < height; i++) {
 	for (j = 0; j < width; j++)
@@ -117,8 +133,7 @@ void show_path (unsigned char* maze, int width, int height, int x, int y) {
     }
 }
 	
-    
-
+/*------------------------------------------------------------*/
 
 /* insert new node into wavefront points list */
 int insert (list_node** start, int x, int y) {
@@ -141,6 +156,8 @@ int insert (list_node** start, int x, int y) {
     }
 }
 
+/*------------------------------------------------------------*/
+
 /* delete node from wavefront points list */
 void delete (list_node** start, list_node** current) {
     if (*start == *current) {
@@ -157,6 +174,8 @@ void delete (list_node** start, list_node** current) {
     }
 
 }
+
+/*------------------------------------------------------------*/
 
 /* delete all nodes from list and free memory */
 void empty_wavefront (list_node** start) {

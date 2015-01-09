@@ -4,7 +4,7 @@ Lee algorithm
 
   Some description to code:
 
-     Wavefront is a list of utmost points, after first iteration wavefront nodes are free starting
+Wavefront is a list of utmost points, after first iteration wavefront nodes are free starting
 point neighbors, after second iteration wavefront nodes are free neighbors of those points and so on.
 Wave pointer traverses all wavefront nodes. If current node has a free neighbor then
 new node added to the head of wavefront list. After all sides of current point are checked,

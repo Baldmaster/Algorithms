@@ -13,20 +13,20 @@ void add_head (linked_list *list, void *data) {
 
     /* check if memory is available */
     if (node == NULL) {
-	printf ("\nNo memory available!\n");
-	return;
+        printf ("\nNo memory available!\n");
+        return;
     }
 
     /* add new node to head */
     node -> data = data;
     if (list -> head == NULL) {
-	list -> tail = node;
-	node -> next = NULL;
-	node -> prev = NULL;
+        list -> tail = node;
+        node -> next = NULL;
+        node -> prev = NULL;
     }
     else {
-	node -> next = list -> head;
-	node -> prev = NULL;
+        node -> next = list -> head;
+        node -> prev = NULL;
     }
     
     list -> head = node;
@@ -38,20 +38,20 @@ void add_tail (linked_list *list, void *data) {
 
     /* check if memory is available */
     if (node == NULL) {
-	printf ("\nNo memory available!\n");
-	return;
+        printf ("\nNo memory available!\n");
+        return;
     }
 
     /* add new node to the end of list */
     node -> data = data;
     node -> next = NULL;
     if (list -> head == NULL) {
-	list -> head = node;
-	node -> prev = NULL;
+        list -> head = node;
+        node -> prev = NULL;
     }
     else {
-	list -> tail -> next = node;
-	node -> prev = list -> tail;
+        list -> tail -> next = node;
+        node -> prev = list -> tail;
     }    
     list -> tail = node;
 }
@@ -60,37 +60,37 @@ void add_tail (linked_list *list, void *data) {
 void delete (linked_list *list, COMPARE compare, void *data) {
     list_node *node = list -> head;
     if (compare (node -> data, data) == 0) {
-	list -> head = node -> next;
-	list -> head -> prev = NULL;
+        list -> head = node -> next;
+        list -> head -> prev = NULL;
     }
     else {
-	list_node* prev = node;
-	node = node -> next;
-	list_node* next = NULL;
+        list_node* prev = node;
+        node = node -> next;
+        list_node* next = NULL;
         while (node != NULL) {
-	    next = node -> next;
-	    /* if node is found delete it */
-	    if (compare (node -> data, data) == 0) {
-		prev -> next = node -> next;
-		next -> prev = node -> prev;
+            next = node -> next;
+            /* if node is found delete it */
+            if (compare (node -> data, data) == 0) {
+                prev -> next = node -> next;
+                next -> prev = node -> prev;
                 break;
-	    }
-	    prev = node;
-	    node = next;
-	}
+            }
+            prev = node;
+            node = next;
+        }
     }
     if (node) {
         free (node);
         printf ("\nNode deleted successfully\n");
     }
     else
-	printf ("\nNode is not found\n");
+        printf ("\nNode is not found\n");
 }
 
 /* show list */
 void display_list (linked_list *list, DISPLAY display) {
     if (list -> head == NULL) {
-	printf ("\nList is empty!\n");
+        printf ("\nList is empty!\n");
     }
     else {
         printf ("\nLinked list:\n");
@@ -98,10 +98,10 @@ void display_list (linked_list *list, DISPLAY display) {
         list_node *current = list -> head;
 
         while (current != NULL) {
-	    display (current -> data);
-	    current = current -> next;
+            display (current -> data);
+            current = current -> next;
         }
-    
+
         printf ("\n__end of list__\n");
     }
 }
@@ -114,11 +114,11 @@ void reverse_list (linked_list *list) {
 
     /* reassign "next" pointer for every node */
     while (current != NULL) {
-	next = current -> next;
-	current -> next = prev;
-	current -> prev = next;
-	prev = current;
-	current = next;
+        next = current -> next;
+        current -> next = prev;
+        current -> prev = next;
+        prev = current;
+        current = next;
     }
 
     /* swap head and tail pointers */

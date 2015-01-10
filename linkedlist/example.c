@@ -71,20 +71,20 @@ int main (void) {
     
 void display_complex (complex* num) {
     if (num -> im == 0) {
-	printf ("%d;\n", num -> real);
+        printf ("%d;\n", num -> real);
     }
     else {
         printf ("\n%d%ci%d;\n", num -> real,
-	        num -> im > 0 ? '+' : '-',
-	        num -> im < 0 ? num -> im * (-1) : num -> im);
+                num -> im > 0 ? '+' : '-',
+                num -> im < 0 ? num -> im * (-1) : num -> im);
     }
 }
 
 int compare_complex (complex* a, complex* b) {
     if (a -> real == b -> real && a -> im == b -> im)
-	return 0;
+        return 0;
     else
-	return 1;
+        return 1;
 }
 
 
@@ -94,7 +94,7 @@ void display_integer (int* num) {
 
 int compare_integers (int* a, int* b) {
     if (*a == *b)
-	return 0;
+        return 0;
     else
-	return 1;
+        return 1;
 }

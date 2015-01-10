@@ -65,13 +65,13 @@ int find_path (unsigned char* maze, int width, int height, list_node* start, lis
                     }
                 }
             }
-	    /* delete current point from list and goto next point*/
-	    list_node* temp = current_node;
+            /* delete current point from list and goto next point*/
+            list_node* temp = current_node;
             current_node = current_node -> next;
             delete (&wavefront, &temp);
         }
         /* incrementing mark value */
-	mark++;
+        mark++;
     }
     /* if there are no more free points and target point not reached, return failure */
     printf ("\n----- PATH NOT FOUND -----\n");

@@ -35,7 +35,22 @@ int main() {
 
     for (j = 0; j < h.size; j++)
         printf ("%d\n", array[j]);
+
+    /* sort heap in descendig order */
+    sort_heap (&h, sizeof (array[0]), (COMPARE) compare_smaller, (SWAP) swap);
     
+    printf ("--- Heap sorted in descendig order---\n");
+    
+    for (j = 0; j < h.size; j++)
+        printf ("%d\n", array[j]);
+
+    /* sort heap in ascending order */
+    sort_heap (&h, sizeof (array[0]), (COMPARE) compare_larger, (SWAP) swap);
+    
+    printf ("--- Heap sorted in ascending order ---\n");
+    
+    for (j = 0; j < h.size; j++)
+        printf ("%d\n", array[j]);
     
     return 0;
 }

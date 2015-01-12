@@ -41,3 +41,24 @@ void build_heap (bin_heap* heap, const int size, COMPARE compare, SWAP swap) {
         heapify (heap, i, size, compare, swap);
 }
 
+/* Sort heap */
+void sort_heap (bin_heap* heap, const int size, COMPARE compare, SWAP swap) {
+    /* build max or min heap depending on compare function */
+    build_heap (heap, size, compare, swap);
+
+    /* declare conter variable and save "heap -> size" in temporary variable */
+    int i, heap_size = heap -> size;
+
+    /* from last index downto 1 do:
+       swap firts and last element values,
+       decrease "heap -> size" by 1,
+       heapify heap again from first to size - 1 element */
+    for (i = (heap -> size) - 1; i; i--) {
+        swap ((heap -> data), ((heap -> data) + i * size));
+        (heap -> size)--;
+        heapify (heap, 0, size, compare, swap);
+    }
+    
+    /* restore initial "heap -> size" value */
+    heap -> size = heap_size;
+}

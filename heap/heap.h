@@ -39,4 +39,9 @@ void heapify (bin_heap* heap, int index, const int type_size, COMPARE, SWAP);
  ************************************************************/
 void build_heap (bin_heap* heap, const int type_size, COMPARE, SWAP);
 
+/************************************************************
+  HeapSort function.
+ ************************************************************/
+void sort_heap (bin_heap* heap, const int type_size, COMPARE, SWAP);
+
 #endif

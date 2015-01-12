@@ -58,33 +58,19 @@ void add_tail (linked_list *list, void *data) {
 
 /*delete node if it contains "data" value */
 void delete (linked_list *list, COMPARE compare, void *data) {
-    list_node *node = list -> head;
-    if (compare (node -> data, data) == 0) {
-        list -> head = node -> next;
-        list -> head -> prev = NULL;
-    }
-    else {
-        list_node* prev = node;
-        node = node -> next;
-        list_node* next = NULL;
-        while (node != NULL) {
-            next = node -> next;
-            /* if node is found delete it */
-            if (compare (node -> data, data) == 0) {
-                prev -> next = node -> next;
-                next -> prev = node -> prev;
-                break;
-            }
-            prev = node;
-            node = next;
-        }
-    }
-    if (node) {
-        free (node);
+    list_node *find = NULL;
+    for (find = list->head; find && compare(find->data, data); find = find->next);
+
+    if (find){
+        if (find->prev)  find->prev->next = find->next;
+        if (find->next)  find->next->prev = find->prev;
+        if (find == list->head)  list->head = find->next;
+        if (find == list->tail)  list->tail = find->prev;
+        free(find);
         printf ("\nNode deleted successfully\n");
-    }
-    else
+    }else{
         printf ("\nNode is not found\n");
+    }
 }
 
 /* show list */

@@ -19,13 +19,17 @@ setEmpty _      = False
 
 inSet x (S xs)  = elem x (takeWhile (<= x) xs)
 
+-- addSet adds only unique element
+-- to set in ascending order,
+-- hense set stays ordered without duplicates.
 addSet x (S xs) = S (add x xs)
   where
     add x []                   = [x]
-    add x s@(y:ys) | x > y     = y : (add x ys)
+    add x s@(y:ys) | x > y     = y : (add x ys) 
                    | x < y     = x : s
                    | otherwise = s
 
+-- delete element from set
 delSet x (S xs) = S (del x xs)
   where
     del x []                   = []

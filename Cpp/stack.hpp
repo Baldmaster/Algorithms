@@ -1,6 +1,7 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 #include <iostream>
+#include <iomanip>
 #include <memory>
 
 
@@ -13,8 +14,9 @@ class Stack {
 private:
     struct Node* top = nullptr;
 public:
-    void push (T);
-    bool pop ();
+    void push(T);
+    bool pop();
+    void show();
 };
 
 template <typename T>
@@ -40,6 +42,21 @@ bool Stack<T>::pop() {
     }
     
     return true;
+}
+
+template <typename T>
+void Stack<T>::show() {
+    struct Node* tmp = this -> top;
+
+    std::cout << "\n--- Stack ---\n" << std::endl;
+    
+    while (tmp) {
+        std::cout << std::setw(4) << tmp -> data << ";"
+                  << std::endl;
+        tmp = tmp -> next;
+    }
+
+    std::cout << "\n--- ===== ---\n" << std::endl;
 }
 
 #endif

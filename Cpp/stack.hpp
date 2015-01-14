@@ -21,7 +21,6 @@ template <typename T>
 void Stack<T>::push(T data) {
     struct Node* newNode = new struct Node;
     newNode -> data = data;
-    std::cout << data << std::endl;
     if (this -> top == nullptr)
         newNode -> next = nullptr;
     else 

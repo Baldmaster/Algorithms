@@ -88,22 +88,18 @@ void display_list (linked_list *list, DISPLAY display) {
 }
 
 /* reverse list */
-void reverse_list (linked_list *list) {
-    list_node *current = list -> head;
-    list_node *prev = NULL;
-    list_node *next = current;
+void reverse_list(linked_list *list){
+    list_node *temp =  NULL;
 
-    /* reassign "next" pointer for every node */
-    while (current != NULL) {
-        next = current -> next;
-        current -> next = prev;
-        current -> prev = next;
-        prev = current;
-        current = next;
+    //reassign "next" pointer for every node 
+    for (list_node *cur = list->head; cur; cur = temp){
+        temp = cur->next;
+        cur->next = cur->prev;
+        cur->prev = temp;
     }
 
-    /* swap head and tail pointers */
-    current = list -> head;
-    list -> head = list -> tail;
-    list -> tail = current;
+    // swap head and tail pointers 
+    temp = list->head;
+    list->head = list->tail;
+    list->tail = temp;
 }

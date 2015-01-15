@@ -30,27 +30,25 @@ linked_list* add_head(linked_list *list, void *data){
 }
 
 /* add node to the end of list */
-void add_tail (linked_list *list, void *data) {
-    list_node *node = (list_node*) malloc (sizeof (list_node));
+linked_list* add_tail(linked_list *list, void *data){
+    list_node *node = malloc(sizeof(*node));
 
     /* check if memory is available */
-    if (node == NULL) {
-        printf ("\nNo memory available!\n");
-        return;
-    }
+    if (!node)  return NULL;
 
     /* add new node to the end of list */
-    node -> data = data;
-    node -> next = NULL;
-    if (list -> head == NULL) {
-        list -> head = node;
-        node -> prev = NULL;
-    }
-    else {
-        list -> tail -> next = node;
-        node -> prev = list -> tail;
+    node->data = data;
+    node->next = NULL;
+    if (list->head){
+        list->tail->next = node;
+        node->prev = list->tail;
+    }else{
+        list->head = node;
+        node->prev = NULL;
     }    
-    list -> tail = node;
+    list->tail = node;
+
+    return list;
 }
 
 /*delete node if it contains "data" value */

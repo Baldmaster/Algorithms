@@ -36,7 +36,7 @@ void initialize_list (linked_list *list);
 linked_list* add_head (linked_list *list, void *data);
 
 /* add node to the end of list */
-void add_tail (linked_list *list, void *data);
+linked_list* add_tail (linked_list *list, void *data);
 
 /*delete node if it contains "data" value */
 void delete (linked_list *list, COMPARE compare, void *data);

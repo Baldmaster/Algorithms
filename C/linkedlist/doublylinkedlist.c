@@ -19,14 +19,14 @@ void add_head (linked_list *list, void *data) {
 
     /* add new node to head */
     node -> data = data;
+    node -> prev = NULL;
     if (list -> head == NULL) {
         list -> tail = node;
         node -> next = NULL;
-        node -> prev = NULL;
     }
     else {
         node -> next = list -> head;
-        node -> prev = NULL;
+        list -> head -> prev = node;
     }
     
     list -> head = node;

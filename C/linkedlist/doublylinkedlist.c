@@ -7,53 +7,49 @@ void initialize_list (linked_list *list) {
 }
 
 /* add node to head */
-void add_head (linked_list *list, void *data) {
+linked_list* add_head(linked_list *list, void *data){
     /* create new node and allocate memory */
-    list_node *node = (list_node*) malloc (sizeof (list_node));
+    list_node *node = malloc(sizeof(*node));
 
     /* check if memory is available */
-    if (node == NULL) {
-        printf ("\nNo memory available!\n");
-        return;
-    }
+    if (!node)  return NULL;
 
     /* add new node to head */
     node -> data = data;
-    if (list -> head == NULL) {
-        list -> tail = node;
-        node -> next = NULL;
-        node -> prev = NULL;
+    node -> prev = NULL;
+    if (list -> head){
+        list -> head -> prev = node;
+        node -> next = list -> head;
     }
     else {
-        node -> next = list -> head;
-        node -> prev = NULL;
+        list->tail = node;
+        node->next = NULL;
     }
-    
     list -> head = node;
+
+    return list;
 }
 
 /* add node to the end of list */
-void add_tail (linked_list *list, void *data) {
-    list_node *node = (list_node*) malloc (sizeof (list_node));
+linked_list* add_tail(linked_list *list, void *data){
+    list_node *node = malloc(sizeof(*node));
 
     /* check if memory is available */
-    if (node == NULL) {
-        printf ("\nNo memory available!\n");
-        return;
-    }
+    if (!node)  return NULL;
 
     /* add new node to the end of list */
     node -> data = data;
     node -> next = NULL;
-    if (list -> head == NULL) {
-        list -> head = node;
-        node -> prev = NULL;
-    }
-    else {
+    if (list -> head){
         list -> tail -> next = node;
         node -> prev = list -> tail;
+    }else{
+        list -> head = node;
+        node -> prev = NULL;
     }    
     list -> tail = node;
+
+    return list;
 }
 
 /*delete node if it contains "data" value */
@@ -61,14 +57,15 @@ void delete (linked_list *list, COMPARE compare, void *data) {
     list_node *find = NULL;
     for (find = list->head; find && compare(find->data, data); find = find->next);
 
-    if (find){
-        if (find->prev)  find->prev->next = find->next;
-        if (find->next)  find->next->prev = find->prev;
-        if (find == list->head)  list->head = find->next;
-        if (find == list->tail)  list->tail = find->prev;
+    if (find) {
+        if (find -> prev)  find -> prev -> next = find -> next;
+        if (find -> next)  find -> next -> prev = find -> prev;
+        if (find == list -> head)  list -> head = find -> next;
+        if (find == list -> tail)  list -> tail = find -> prev;
         free(find);
         printf ("\nNode deleted successfully\n");
-    }else{
+    }
+    else {
         printf ("\nNode is not found\n");
     }
 }
@@ -93,22 +90,18 @@ void display_list (linked_list *list, DISPLAY display) {
 }
 
 /* reverse list */
-void reverse_list (linked_list *list) {
-    list_node *current = list -> head;
-    list_node *prev = NULL;
-    list_node *next = current;
-
-    /* reassign "next" pointer for every node */
-    while (current != NULL) {
-        next = current -> next;
-        current -> next = prev;
-        current -> prev = next;
-        prev = current;
-        current = next;
+void reverse_list(linked_list *list){
+    list_node *temp =  NULL;
+    list_node *curr;
+    //reassign "next" pointer for every node 
+    for (curr = list -> head; curr; curr = temp){
+        temp = curr -> next;
+        curr -> next = curr -> prev;
+        curr -> prev = temp;
     }
 
-    /* swap head and tail pointers */
-    current = list -> head;
+    // swap head and tail pointers 
+    temp = list -> head;
     list -> head = list -> tail;
-    list -> tail = current;
+    list -> tail = temp;
 }

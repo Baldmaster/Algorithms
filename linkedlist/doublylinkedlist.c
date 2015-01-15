@@ -7,29 +7,26 @@ void initialize_list (linked_list *list) {
 }
 
 /* add node to head */
-void add_head (linked_list *list, void *data) {
+linked_list* add_head(linked_list *list, void *data){
     /* create new node and allocate memory */
-    list_node *node = (list_node*) malloc (sizeof (list_node));
+    list_node *node = malloc(sizeof(*node));
 
     /* check if memory is available */
-    if (node == NULL) {
-        printf ("\nNo memory available!\n");
-        return;
-    }
+    if (!node)  return NULL;
 
     /* add new node to head */
-    node -> data = data;
-    if (list -> head == NULL) {
-        list -> tail = node;
-        node -> next = NULL;
-        node -> prev = NULL;
+    node->data = data;
+    node->prev = NULL;
+    if (list->head){
+        list->head->prev = node;
+        node->next = list->head;
+    }else{
+        list->tail = node;
+        node->next = NULL;
     }
-    else {
-        node -> next = list -> head;
-        node -> prev = NULL;
-    }
-    
-    list -> head = node;
+    list->head = node;
+
+    return list;
 }
 
 /* add node to the end of list */

@@ -33,7 +33,7 @@ typedef struct _linked_list {
 void initialize_list (linked_list *list);
 
 /* add node to head */
-void add_head (linked_list *list, void *data);
+linked_list* add_head (linked_list *list, void *data);
 
 /* add node to the end of list */
 void add_tail (linked_list *list, void *data);

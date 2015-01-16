@@ -17,11 +17,14 @@ void rabin_karp (char* haystack, char* needle) {
     int t = 0;
     
     int i;
+
+    /* calculating initial hashes */
     for (i = 0; i < patt_len; i++) {
         p = (D * p + needle[i]) % Q;
         t = (D * t + haystack[i]) % Q;
     }
-    
+
+    /* processing all haystack */
     for (i = 0; i <= text_len - patt_len; i++) {
         /* if pattern hash matches current text region hash */
         if (p == t) {

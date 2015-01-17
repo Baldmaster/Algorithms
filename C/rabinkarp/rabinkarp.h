@@ -10,8 +10,9 @@
 
 /************************************************************
  Looking for a needle in haystack :)
+ -1 - needle is bigger than haystack.
  ************************************************************/
-void rabin_karp (char* haystack, char* needle);
+int rabin_karp (char* haystack, char* needle);
 
 /************************************************************
   Exponentation by squaring, result returns by modulo "mod".

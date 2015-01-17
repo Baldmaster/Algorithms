@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#define Q 127
-#define D 128
+#define Q 11
+#define D 10
 
 int rabin_karp (char* haystack, char* needle) {
     int text_len = strlen (haystack);

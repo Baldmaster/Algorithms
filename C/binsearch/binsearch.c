@@ -30,7 +30,6 @@ int binsearch (void* array, void* key, size_t type_size, size_t array_size, COMP
                            compare ((array + curr * type_size), key)) {
             /* return success if match */
             case 0:
-                printf ("equal\n");
                 return 0;
             /* othrewise keep on searching in left or right part */
             case 1:

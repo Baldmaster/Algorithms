@@ -145,17 +145,6 @@ int compare_employees (employee* a, employee* b) {
 	return 2;
 }
 
-int compare_emp_name (employee* a, char* n) {
-    int name =  strcmp (a -> name, n);    
-    if (name == 0) {
-         return 0;
-    }
-    else if (name > 0)
-	return 1;
-    else
-	return 2;
-}
-
 void display_employee (employee* node) {
     printf ("Name: %s, Age: %d\n",
 	    node -> name,

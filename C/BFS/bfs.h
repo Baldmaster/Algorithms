@@ -6,23 +6,40 @@
 #ifndef BFS_H
 #define BFS_H
 
+/************************************************************
+  Vertex structure. 
+   color values: 2 - white, 1 - gray, 0 - black.
+ ************************************************************/
 typedef struct _vertex {
     int color;
-    int d;
+    int distance; /* distance to initial vertex */
     struct _node* adjacent;
 } vertex;
 
+/************************************************************
+   Node structure.
+ ************************************************************/
 typedef struct _node {
-    vertex* vert;
+    struct _vertex* vert;
     struct _node* next;
 } node;
 
+/************************************************************
+   Queue structure.
+ ************************************************************/
 typedef struct _queue {
     node* head;
     node* tail;
 } queue;
 
-int bfs (vertex* graph, vertex* v); 
+/************************************************************
+   BFS function.
+ ************************************************************/
+int bfs (vertex* v);
+
+/************************************************************
+   Queue functions.
+ ************************************************************/
 int is_empty (queue* q);
 void enqueue (queue* q, vertex* v);
 vertex* dequeue (queue* q);

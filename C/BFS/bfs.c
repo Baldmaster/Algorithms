@@ -3,18 +3,23 @@
 
 #include "bfs.h"
 
-int bfs (vertex* graph, vertex* v) {
+int bfs (vertex* v) {
+    /* init queue */
     queue q;
     q.head = NULL;
     q.tail = NULL;
+
+    /* enqueue start vertex */
     enqueue (&q, v);
+    
+    /* set color to gray */
     v -> color = 1;
     while (is_empty (&q)) {
         vertex* u = dequeue (&q);
         for (node* i = u -> adjacent; i ; i = i -> next) {
             if (i -> vert -> color == 2) {
                 i -> vert -> color = 1;
-                i -> vert -> d = (u -> d) + 1;
+                i -> vert -> distance = (u -> distance) + 1;
                 enqueue (&q, i -> vert);
             }
         }

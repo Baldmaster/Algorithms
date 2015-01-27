@@ -229,29 +229,30 @@ void rb_delete_fix (rb_tree* tree, rb_node* node) {
     while ((x != (tree -> root)) && ((x -> color) == 0)) {
         if (x == x -> parent -> left) {
             w = x -> parent -> right;
-            
             if (w && w -> color) {
                 w -> color = 0;
                 x -> parent -> color = 1;
                 left_rotate (tree, x -> parent);
                 w = x -> parent -> right;
             }
-
-            if (w -> left -> color == 0 && w -> right -> color == 0) {
+            if ((w -> left == NULL || w -> left -> color == 0 ) &&
+                (w -> right == NULL || w -> right -> color == 0 )) {
                 w -> color = 1;
                 x = x -> parent;
             }
             else {
-                if (w -> right -> color == 0) {
-                w -> left -> color = 0;
-                w -> color = 1;
-                right_rotate (tree, x -> parent);
-                w = x -> parent -> right;
+                if ((w -> right -> color == 0) || ( w -> right == NULL)) {
+                    if (w -> left)
+                        w -> left -> color = 0;
+                    w -> color = 1;
+                    right_rotate (tree, x -> parent);
+                    w = x -> parent -> right;
                 }
 
                 w -> color = x -> parent -> color;
                 x -> parent -> color = 0;
-                w -> right -> color = 0;
+                if (w -> right)
+                    w -> right -> color = 0;
                 left_rotate (tree, x -> parent);
                 x = tree -> root;
             }
@@ -266,21 +267,24 @@ void rb_delete_fix (rb_tree* tree, rb_node* node) {
                 w = x -> parent -> left;
             }
             
-            if (w -> right -> color == 0 && w -> left -> color == 0) {
+            if ((w -> right == NULL || w -> right -> color == 0) &&
+                (w -> left == NULL || w -> right -> color == 0)) {
                 w -> color = 1;
                 x = x -> parent;
             }
             else {
                 if (w -> left -> color == 0) {
-                w -> right -> color = 0;
-                w -> color = 1;
-                left_rotate (tree, x -> parent);
-                w = x -> parent -> left;
+                    if (w -> right)
+                        w -> right -> color = 0;
+                    w -> color = 1;
+                    left_rotate (tree, x -> parent);
+                    w = x -> parent -> left;
                 }
 
                 w -> color = x -> parent -> color;
                 x -> parent -> color = 0;
-                w -> left -> color = 0;
+                if (w -> left)
+                    w -> left -> color = 0;
                 right_rotate (tree, x -> parent);
                 x = tree -> root;
             }

@@ -7,10 +7,15 @@
 
 #ifndef RBTREE_H
 #define RBTREE_H
-
+/************************************************************
+  Function pointers
+************************************************************/
 typedef int (*COMPARE) (void*, void*);
 typedef void (*DISPLAY) (void*);
 
+/************************************************************
+  Node structure
+ ************************************************************/
 typedef struct _rb_node {
     short color;
     void* data;
@@ -33,7 +38,7 @@ int rb_delete (rb_tree* tree, void* data, COMPARE compare);
 void rb_delete_fix (rb_tree* tree, rb_node* node);
 rb_node* rb_find (rb_tree* tree, void* data, COMPARE compare);
 rb_node* rb_min (rb_node* tree);   
-void rb_inorder (rb_node* root, DISPLAY display);    
+void rb_inorder (rb_node* root, DISPLAY display, int);    
 
 
 

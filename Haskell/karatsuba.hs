@@ -8,12 +8,12 @@ karatsuba x y
   | length x == 1 || length y == 1  = (read x :: Integer) * (read y :: Integer)
   | otherwise                       = ((10 ^ t) * ac) + bd + ((10 ^ t') * adbc)
     where
-          (v, w)    = if xl <= yl 
-                          then (foldr (++) x $ replicate (yl - xl) "0", y)
-                          else (x, foldr (++) y $ replicate (xl - yl) "0")
-          (t, n)    = if rem (length v) 2 == 0
-                          then (length v, div (length v) 2)
-                          else (length v - 1, div (length v) 2 + 1)
+          (v, w)    = case xl <= yl of
+                          True  -> (foldr (++) x $ replicate (yl - xl) "0", y)
+                          False -> (x, foldr (++) y $ replicate (xl - yl) "0")
+          (t, n)    = case rem (length v) 2 == 0 of
+                          True  -> (length v, div (length v) 2)
+                          False -> (length v - 1, div (length v) 2 + 1)
           t'        = div t 2
           xl        = length x
           yl        = length y

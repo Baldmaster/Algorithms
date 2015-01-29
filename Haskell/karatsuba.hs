@@ -1,6 +1,6 @@
 -- Karatsuba algorithm
 --
--- String implementation.
+-- String implementation. Space consuming, but it works!
 -- Skupoy Sergey. sergey.archlinux@gmail.com, 2015
 
 karatsuba :: String -> String -> Integer

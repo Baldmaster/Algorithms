@@ -1,3 +1,8 @@
+-- Karatsuba algorithm
+--
+-- Integer version
+-- Skupoy Sergey. sergey.archlinux@gmail.com, 2015.
+
 karatsuba :: Integer -> Integer -> Integer
 karatsuba x y acc
   | x < 10 || y < 10 = x * y

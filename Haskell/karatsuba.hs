@@ -21,9 +21,10 @@ karatsuba x y
           b         = drop n v
           c         = take n w
           d         = drop n w
-          ac        = (karatsuba a c)
-          bd        = (karatsuba b d)
+          ac        = karatsuba a c
+          bd        = karatsuba b d
           adbc      = (+ (- ac)) . (+ (- bd)) $
                       karatsuba
                       (show $ (read a :: Integer) + (read b :: Integer))
                       (show $ (read c :: Integer) + (read d :: Integer))
+

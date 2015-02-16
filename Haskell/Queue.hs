@@ -1,4 +1,4 @@
-module Queue(Queue, enqueue, dequeue, emptyQueue, front) where
+module Queue(Queue, enqueue, dequeue, emptyQueue, isEmptyQueue, front) where
 
 newtype Queue a = Q ([a], [a])
 

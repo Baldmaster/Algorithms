@@ -8,7 +8,7 @@ breadthFirstSearch :: Ix a => a -> Graph a b -> [a]
 breadthFirstSearch start g = reverse (bfs (enqueue start emptyQueue) [])
   where
     bfs q visited
-      | (isEmptyQueue q)         = visited
+      | (isEmptyQueue q)       = visited
       | elem (front q) visited = bfs (dequeue q) visited
       | otherwise              = let c = front q
                                  in

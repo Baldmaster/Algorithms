@@ -5,13 +5,13 @@ import Data.Array
 import Data.Ix
 
 
-type Key val    = [val]
-type Bucket val = [Key val]
+type Key val     = [val]
+type Bucket val  = [Key val]
 type Buckets val = Array val (Bucket val)
 
 rsort :: Ix a => Int -> (a, a) -> [Key a] -> [Key a]
-rsort 0       bnds l   = l
-rsort p       bnds l   = rsort (p - 1) bnds (concatA (split' (p - 1) bnds l))
+rsort 0 bnds l = l
+rsort p bnds l = rsort (p - 1) bnds (concatA (split' (p - 1) bnds l))
 
 split' :: Ix a => Int -> (a, a) -> [Key a] -> Buckets a
 split' k bnds l = accumArray f [] bnds [(x !! k, x) | x <- l]

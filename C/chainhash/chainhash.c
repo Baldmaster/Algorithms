@@ -28,7 +28,6 @@ int hash_insert (hash_table* table, void* data,
         if (temp)
             return 1;
         else {
-            printf ("in else\n");
             new_node -> next = (table -> table)[location];
             (table -> table)[location] -> prev = new_node;
             (table -> table)[location] = new_node;

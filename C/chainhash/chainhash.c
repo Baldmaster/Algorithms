@@ -12,7 +12,6 @@ int hash_insert (hash_table* table, void* data,
         printf ("Error! No memory available.\n");
         return 1;
     }
-
     new_node -> prev = NULL;
     new_node -> data = data;
     unsigned int location = hashfunc (data, table -> size);
@@ -36,7 +35,24 @@ int hash_insert (hash_table* table, void* data,
     }
     return 0;
 }
+
+int hash_search (hash_table* table, void* data,
+                 HASHFUNC hashfunc, COMPARE compare) {
+
+    unsigned int location = hashfunc (data, table -> size);
     
+    if ((table -> table)[location] == NULL) {
+        return 1;
+    }
+    else {
+        hash_node* temp = (table -> table)[location];
+        for (; temp && compare ((temp -> data), data); temp = temp -> next);
+        if (temp != NULL)
+            return 0;
+    }
+    return 1;
+}
+
 int hash_delete (hash_table* table, void* data,
                  HASHFUNC hashfunc, COMPARE compare) {
 

@@ -17,10 +17,10 @@ typedef int (*COMPARE) (void*, void*);
 typedef void (*DISPLAY) (void*);
 
 /* node structure */
-typedef struct _node {
+typedef struct _list_node {
     void *data;
-    struct _node *next;
-    struct _node *prev;
+    struct _list_node *next;
+    struct _list_node *prev;
 } list_node;
 
 /* list structure */

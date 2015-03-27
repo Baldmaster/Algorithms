@@ -13,6 +13,7 @@
  ************************************************************/
 typedef struct _vertex {
     char name;
+    int in_stack;
     int index;
     int low;
     struct _node* adj;

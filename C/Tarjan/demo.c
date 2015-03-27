@@ -15,6 +15,7 @@ int main (void) {
         g[i].index = 0;
         g[i].low = 0;
         g[i].name = 65 + i;
+        g[i].in_stack = 0;
     }
 
     /* create adjacency list for every node */

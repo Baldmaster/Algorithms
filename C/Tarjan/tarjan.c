@@ -31,6 +31,7 @@ int strong_connect (vertex* v, components** comp, node** stack, int* index) {
     node* new_node = NULL;
     vertex* temp = NULL;
     push (stack, v);
+    v -> in_stack = 1;
 
     /* traverse adjacent vertexes */
     for (node* i = v -> adj; i; i = i -> next) {
@@ -45,7 +46,7 @@ int strong_connect (vertex* v, components** comp, node** stack, int* index) {
                 v -> low = (i -> vert -> low);
         }
         /* if vertex is in list */
-        else if (in_stack (*stack, i -> vert)) {
+        else if (i -> vert -> in_stack) {
             /* check index of adjacent node, if it is
                lower than predecessor low index, 
                set predecessor -> low to that value */ 
@@ -58,6 +59,7 @@ int strong_connect (vertex* v, components** comp, node** stack, int* index) {
     if (v -> low == v -> index) {
         do {
             temp = pop (stack);
+            temp -> in_stack = 0;
             push (&new_node, temp);
         } while (v != temp);
         /* add component to component list */
@@ -109,13 +111,4 @@ vertex* pop (node** stack) {
         return NULL;
 }
 
-int in_stack (node* stack, vertex* v) {
-    node* i = NULL;
-    for (i = stack; i && ((i -> vert) != v); i = i -> next);
-    
-    if (i)
-        return 1;
-    else
-        return 0;
-}
 

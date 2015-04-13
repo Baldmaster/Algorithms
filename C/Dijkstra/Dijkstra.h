@@ -1,6 +1,18 @@
+/************************************************************
+   Dijkstra's algorithm. Heap based.
+
+
+   Skupoy Sergey, sergey.archlinux@gmail.com, 2015
+ ************************************************************/
+
+
+
 #ifndef DIJKSTRA_H
 #define DIJKSTRA_H
 
+/************************************************************
+  Vertex
+ ************************************************************/
 typedef struct _vertex {
     int q_number;
     int name;
@@ -9,12 +21,18 @@ typedef struct _vertex {
     struct _node* adj;
 } vertex;
 
+/************************************************************
+  List node
+ ************************************************************/
 typedef struct _node {
     int weight;
     vertex* vert;
     struct _node* next;
 } node;
 
+/************************************************************
+   Heap
+ ************************************************************/
 typedef struct _bin_heap {
     vertex** data;
     int size;

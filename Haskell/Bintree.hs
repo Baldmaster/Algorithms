@@ -34,7 +34,7 @@ buildTree xs = NodeBT x (buildTree left) (buildTree right)
         n = div (length xs) 2 -- in order to build almost balanced tree
 
 inOrder EmptyBT                = []
-inOrder (NodeBT v ltree rtree) = (inOrder ltree) ++ [v] ++ (inOrder rtree)
+inOrder NodeBT v ltree rtree = inOrder ltree ++ [v] ++ inOrder rtree
 
 delTree v EmptyBT = EmptyBT
 -- empty right subtree

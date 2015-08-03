@@ -23,5 +23,4 @@ graphAL = array (1,5) [(1, [(2,12),(3,34),(5,78)]),
                        (4, [(2,55), (3,61), (5,93)]),
                        (5,[(1,78),(2,32),(3,44),(4,93)])]
 
-main = do
-  print $ depthFirstSearch 4 graphAL
+main = print $ depthFirstSearch 4 graphAL

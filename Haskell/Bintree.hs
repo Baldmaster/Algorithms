@@ -4,7 +4,7 @@
 --
 
 module BinTree (BinTree, emptyTree, inTree, addTree,
-                delTree, buildTree, inOrder) where
+                delTree, buildTree, inOrder, preOrder, postOrder) where
 
 inTree    :: (Ord a, Show a) => a -> BinTree a -> Bool
 addTree   :: (Ord a, Show a) => a -> BinTree a -> BinTree a
@@ -33,8 +33,14 @@ buildTree xs = NodeBT x (buildTree left) (buildTree right)
         (x:left) = drop n xs  -- it is better to split it in two parts
         n = div (length xs) 2 -- in order to build almost balanced tree
 
+preOrder EmptyBT                = []
+preOrder (NodeBT v ltree rtree) = (preOrder ltree) ++ (preOrder rtree) ++ [v] 
+
 inOrder EmptyBT                = []
 inOrder NodeBT v ltree rtree = inOrder ltree ++ [v] ++ inOrder rtree
+
+postOrder EmptyBT                = []
+postOrder (NodeBT v ltree rtree) = [v] ++ (postOrder ltree) ++ (postOrder rtree)
 
 delTree v EmptyBT = EmptyBT
 -- empty right subtree
@@ -53,5 +59,3 @@ delTree v (NodeBT x ltree rtree)
 -- looking for the leftmost node in right subtree
 minTree (NodeBT v EmptyBT _) = v              -- No left subtree, that's it!
 minTree (NodeBT _ ltree _ )  = minTree ltree  -- There is left subtree, so keep searching.
-                                            
-

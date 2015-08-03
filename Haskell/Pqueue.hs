@@ -30,7 +30,5 @@ frontPQ (PQ [])       = error "PQ front error: empty queue!"
 frontPQ (PQ (x:xs))   = x
 
 instance (Show a) => Show (PQueue a) where
-  showsPrec p (PQ (queue)) str
-    = showString "PQ " (showList (queue) str)
-
-
+  showsPrec p (PQ queue) str
+    = showString "PQ " (showList queue str) 

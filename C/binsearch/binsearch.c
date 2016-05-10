@@ -3,7 +3,12 @@
 
 #include "binsearch.h"
 
-int binsearch (void* array, void* key, size_t type_size, size_t array_size, COMPARE compare) {
+int binsearch (void* array,
+               const void* key,
+               const size_t type_size,
+               const size_t array_size,
+               COMPARE compare) {
+    
     /* return failure if length is 0 */
     if (array_size == 0)
         return 1;
@@ -34,12 +39,11 @@ int binsearch (void* array, void* key, size_t type_size, size_t array_size, COMP
             /* othrewise keep on searching in left or right part */
             case 1:
                 to = curr - 1;
-                curr = from + (to - from) / 2;
                 break;
             case 2:
                 from = curr + 1;
-                curr = from + (to - from) / 2 + 1;
         }
+        curr = from + (to - from) / 2;
     }
     
     return 1;

@@ -11,6 +11,7 @@ class Graph {
     this.vertices = new Map()
     this.dfs = dfsIterative
   }
+
   addEdge(v, w, d = true) {
     let vert = this.vertices
     
@@ -26,7 +27,12 @@ class Graph {
   } 
 }
 
-function dfsIterative(vertex) {
+function dfsIterative(vertex, target = new Vertex()) {
+  if (! this.vertices.has(target.label)) {
+    console.error('This vertex is not in this graph')
+    return false
+  }
+    
   let visited = new Set()
   let stack = []
   var current
@@ -35,14 +41,19 @@ function dfsIterative(vertex) {
 
   while(stack.length) {
     current = stack.pop()
+    
+    if (current.label === target.label)
+      return true
+    
     if (! visited.has(current.label)) {
       visited.add(current.label)
-      console.log(current.label, ' -> ')
       for (let v of current.adjacent) {
         stack.push(v)
       }
     }
   }
+  
+  return false
 }
 
 
